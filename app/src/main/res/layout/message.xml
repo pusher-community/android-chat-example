@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="75dp">
+
+    <ImageView
+        android:id="@+id/img_thumbnail"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/message_sender"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@+id/img_thumbnail"
+        android:layout_alignTop="@+id/img_thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/message_body"
+        android:layout_below="@+id/message_sender"
+        android:layout_alignLeft="@+id/message_sender"
+        />
+
+
+</RelativeLayout>

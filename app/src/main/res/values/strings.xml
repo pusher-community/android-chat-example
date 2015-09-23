@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Pusher Chat</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="welcome">Welcome, buddy! Please enter your Twitter handle below</string>
     <string name="action_settings">Settings</string>
     <string name="button">Send</string>
+    <string name="title_activity_login">Login</string>
 </resources>

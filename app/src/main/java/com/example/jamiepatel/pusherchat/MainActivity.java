@@ -2,52 +2,62 @@ package com.example.jamiepatel.pusherchat;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.pusher.client.Pusher;
 import com.pusher.client.channel.Channel;
 import com.pusher.client.channel.SubscriptionEventListener;
 import com.google.gson.Gson;
 
-import org.apache.http.entity.StringEntity;
+import org.json.JSONObject;
+import org.json.JSONStringer;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class MainActivity extends ActionBarActivity implements View.OnKeyListener {
+import cz.msebera.android.httpclient.Header;
+
+public class MainActivity extends ActionBarActivity implements View.OnKeyListener, View.OnClickListener {
 
     MessageAdapter messageAdapter;
     EditText messageInput;
+    Button sendButton;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        messageInput = (EditText) findViewById(R.id.message_input);
+        username = this.getIntent().getExtras().getString("username");
+        Toast.makeText(this, "Welcome, " + username + "!", Toast.LENGTH_LONG).show();
 
+        messageInput = (EditText) findViewById(R.id.message_input);
         messageInput.setOnKeyListener(this);
+
+        sendButton = (Button) findViewById(R.id.send_button);
+        sendButton.setOnClickListener(this);
 
         messageAdapter = new MessageAdapter(this, new ArrayList<Message>());
         final ListView messagesView = (ListView) findViewById(R.id.messages_view);
-
         messagesView.setAdapter(messageAdapter);
 
-        Pusher pusher = new Pusher("5232652aa1172d50e178");
+        Pusher pusher = new Pusher("faa685e4bb3003eb825c");
 
         pusher.connect();
 
 
-        Channel channel = pusher.subscribe("chatroom");
+        Channel channel = pusher.subscribe("messages");
 
         channel.bind("new_message", new SubscriptionEventListener() {
             @Override
@@ -93,33 +103,55 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_ENTER){
-            String text = messageInput.getText().toString();
-            postMessage(text);
+        if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP){
+            postMessage();
         }
         return true;
     }
 
-    private void postMessage(String text)  {
-        Message message = new Message();
-        message.body = text;
-        message.sender = "jamie patel";
+    private void postMessage()  {
+        String text = messageInput.getText().toString();
 
-        Gson gson = new Gson();
-        String body = gson.toJson(message);
-
-        StringEntity entity = null;
-        try {
-            entity = new StringEntity(body);
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (text.equals("")) {
+            return;
         }
+
+        RequestParams params = new RequestParams();
+
+        params.put("text", text);
+        params.put("name", username);
+        params.put("time", new Date().getTime());
+
+        Date now = new Date();
+        System.out.println(now.getTime());
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.post(this, "http://yolo.ngrok.com/messages", entity, "application/json", new JsonHttpResponseHandler(){
+        client.post("http://yolo.ngrok.com/messages", params, new JsonHttpResponseHandler(){
 
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        messageInput.setText("");
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                System.out.println(statusCode);
+                System.out.println(responseString);
+                System.out.println(throwable.getMessage());
+                Toast.makeText(getApplicationContext(), "Something went wrong :(", Toast.LENGTH_LONG).show();
+            }
         });
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        postMessage();
     }
 }

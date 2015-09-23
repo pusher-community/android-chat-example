@@ -8,13 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import com.squareup.picasso.Picasso;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by jamiepatel on 22/09/2015.
@@ -62,23 +57,21 @@ public class MessageAdapter extends BaseAdapter {
 
         Message message = (Message) getItem(position);
 
-        holder.bodyView.setText(message.body);
-        holder.senderView.setText(message.sender);
-        holder.thumbnailImageView.setImageResource(R.mipmap.ic_launcher);
+        holder.bodyView.setText(message.text);
+        holder.senderView.setText(message.name);
 
+        Picasso.with(messageContext).load("https://twitter.com/"+message.name+"/profile_image?size=original").placeholder(R.mipmap.ic_launcher).into(holder.thumbnailImageView);
         return convertView;
     }
 
     public void add(Message message){
         messageList.add(message);
         notifyDataSetChanged();
-        System.out.println(getCount());
     }
 
     private static class MessageViewHolder {
         public ImageView thumbnailImageView;
         public TextView senderView;
         public TextView bodyView;
-
     }
 }

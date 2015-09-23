@@ -88,11 +88,13 @@
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="java-websocket-1.3.1" level="project" />
-    <orderEntry type="library" exported="" name="android-async-http-1.4.4" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="httpclient-4.3.6" level="project" />
     <orderEntry type="library" exported="" name="slf4j-api-1.7.5" level="project" />
+    <orderEntry type="library" exported="" name="android-async-http-1.4.9" level="project" />
     <orderEntry type="library" exported="" name="pusher-java-client-0.3.3" level="project" />
+    <orderEntry type="library" exported="" name="picasso-2.1.1" level="project" />
   </component>
 </module>
 

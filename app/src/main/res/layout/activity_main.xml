@@ -9,18 +9,23 @@
 
 
     <ListView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/messages_view"
-    />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:id="@+id/messages_view"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 
     <LinearLayout
         android:id="@+id/input_bar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
         android:orientation="horizontal" >
 
         <EditText
@@ -40,14 +45,6 @@
 
     </LinearLayout>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/listView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="53dp" />
+
 
 </RelativeLayout>

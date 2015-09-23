@@ -68,7 +68,9 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
                         Gson gson = new Gson();
                         Message message = gson.fromJson(data, Message.class);
                         messageAdapter.add(message);
+                        messagesView.setSelection(messageAdapter.getCount() - 1);
                     }
+
                 });
             }
 
@@ -141,9 +143,6 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                System.out.println(statusCode);
-                System.out.println(responseString);
-                System.out.println(throwable.getMessage());
                 Toast.makeText(getApplicationContext(), "Something went wrong :(", Toast.LENGTH_LONG).show();
             }
         });

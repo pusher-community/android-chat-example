@@ -29,6 +29,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends ActionBarActivity implements View.OnKeyListener, View.OnClickListener {
 
+    final String MESSAGES_ENDPOINT = "http://pusher-chat-demo.herokuapp.com";
+
     MessageAdapter messageAdapter;
     EditText messageInput;
     Button sendButton;
@@ -125,11 +127,10 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         params.put("time", new Date().getTime());
 
         Date now = new Date();
-        System.out.println(now.getTime());
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.post("http://yolo.ngrok.com/messages", params, new JsonHttpResponseHandler(){
+        client.post(MESSAGES_ENDPOINT + "/messages", params, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

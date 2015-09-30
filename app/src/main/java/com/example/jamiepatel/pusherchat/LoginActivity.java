@@ -48,7 +48,6 @@ public class LoginActivity extends ActionBarActivity implements View.OnKeyListen
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
-            System.out.println("enter");
             String username = usernameInput.getText().toString();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("username", username);

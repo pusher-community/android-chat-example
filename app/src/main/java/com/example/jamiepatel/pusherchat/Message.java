@@ -8,4 +8,5 @@ public class Message {
     public String name;
     public String thumbnail;
     public long time;
+
 }

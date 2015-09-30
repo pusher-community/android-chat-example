@@ -60,7 +60,10 @@ public class MessageAdapter extends BaseAdapter {
         holder.bodyView.setText(message.text);
         holder.senderView.setText(message.name);
 
-        Picasso.with(messageContext).load("https://twitter.com/"+message.name+"/profile_image?size=original").placeholder(R.mipmap.ic_launcher).into(holder.thumbnailImageView);
+        Picasso.with(messageContext).
+                load("https://twitter.com/"+message.name+"/profile_image?size=original").
+                placeholder(R.mipmap.ic_launcher).
+                into(holder.thumbnailImageView);
         return convertView;
     }
 

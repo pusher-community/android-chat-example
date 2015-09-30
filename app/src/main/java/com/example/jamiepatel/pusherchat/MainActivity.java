@@ -58,7 +58,6 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
 
         pusher.connect();
 
-
         Channel channel = pusher.subscribe("messages");
 
         channel.bind("new_message", new SubscriptionEventListener() {
@@ -125,8 +124,6 @@ public class MainActivity extends ActionBarActivity implements View.OnKeyListene
         params.put("text", text);
         params.put("name", username);
         params.put("time", new Date().getTime());
-
-        Date now = new Date();
 
         AsyncHttpClient client = new AsyncHttpClient();
 
